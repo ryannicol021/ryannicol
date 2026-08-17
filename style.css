@@ -91,6 +91,8 @@ a {
 .intro-name h4 {
     margin: 0;
 
+    transform: translateX(2px);
+    
     font-family:
         "Avenir Next",
         "Helvetica Neue",
