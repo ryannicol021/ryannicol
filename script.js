@@ -171,6 +171,7 @@ function formatDateRange(start, end) {
         return formattedStart;
     }
 
+    // En dash with one space on either side.
     return `${formattedStart} – ${formattedEnd}`;
 }
 
@@ -191,6 +192,14 @@ function createImage(image) {
 }
 
 
+/*
+    Experience and volunteering:
+
+    Title
+    Organization
+    Date
+*/
+
 function createExperienceEntry(item) {
     const entry = document.createElement("article");
     entry.className = "entry";
@@ -200,20 +209,20 @@ function createExperienceEntry(item) {
     const content = document.createElement("div");
     content.className = "entry-content";
 
-    const organization = document.createElement("p");
-    organization.className = "entry-primary";
-    organization.textContent = item.organization;
-
     const title = document.createElement("p");
-    title.className = "entry-secondary";
+    title.className = "entry-primary";
     title.textContent = item.title;
+
+    const organization = document.createElement("p");
+    organization.className = "entry-secondary";
+    organization.textContent = item.organization;
 
     const date = document.createElement("p");
     date.className = "entry-date";
     date.textContent = formatDateRange(item.start, item.end);
 
-    content.appendChild(organization);
     content.appendChild(title);
+    content.appendChild(organization);
     content.appendChild(date);
 
     entry.appendChild(logo);
@@ -222,6 +231,14 @@ function createExperienceEntry(item) {
     return entry;
 }
 
+
+/*
+    Education:
+
+    Degree
+    School
+    Date
+*/
 
 function createEducationEntry(item) {
     const entry = document.createElement("article");
@@ -232,20 +249,20 @@ function createEducationEntry(item) {
     const content = document.createElement("div");
     content.className = "entry-content";
 
-    const school = document.createElement("p");
-    school.className = "entry-primary";
-    school.textContent = item.school;
-
     const degree = document.createElement("p");
-    degree.className = "entry-secondary";
+    degree.className = "entry-primary";
     degree.textContent = item.degree;
+
+    const school = document.createElement("p");
+    school.className = "entry-secondary";
+    school.textContent = item.school;
 
     const date = document.createElement("p");
     date.className = "entry-date";
     date.textContent = formatDateRange(item.start, item.end);
 
-    content.appendChild(school);
     content.appendChild(degree);
+    content.appendChild(school);
     content.appendChild(date);
 
     entry.appendChild(logo);
@@ -254,6 +271,14 @@ function createEducationEntry(item) {
     return entry;
 }
 
+
+/*
+    Awards:
+
+    Award
+    Organization
+    Date
+*/
 
 function createAwardEntry(item) {
     const entry = document.createElement("article");
