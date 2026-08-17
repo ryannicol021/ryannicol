@@ -168,6 +168,40 @@ function formatDateRange(start, end) {
    Entry creation
 -------------------------------- */
 
+function createSocialEntry(item) {
+    const link = document.createElement("a");
+
+    link.className = "social-link";
+    link.href = item.link;
+
+    /*
+        External links open in a new tab.
+        mailto links simply open the user's
+        configured email application.
+    */
+    if (!item.link.startsWith("mailto:")) {
+        link.target = "_blank";
+        link.rel = "noopener noreferrer";
+    }
+
+    const image = document.createElement("img");
+
+    image.className = "social-link-icon";
+    image.src = `images/${item.image}`;
+    image.alt = "";
+    image.loading = "lazy";
+
+    const handle = document.createElement("span");
+
+    handle.className = "social-link-handle";
+    handle.textContent = item.handle;
+
+    link.appendChild(image);
+    link.appendChild(handle);
+
+    return link;
+}
+
 function createImage(image) {
     const img = document.createElement("img");
 
@@ -305,6 +339,16 @@ async function renderSection(sectionName, config) {
 
     try {
         const items = await loadCSV(config.file);
+
+        if (config.type === "social") {
+            items.forEach(item => {
+                const entry = createSocialEntry(item);
+                container.appendChild(entry);
+            });
+
+            return;
+        }
+
         const sortedItems = sortNewestFirst(items);
 
         sortedItems.forEach(item => {
