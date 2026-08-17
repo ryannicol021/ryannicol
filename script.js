@@ -17,6 +17,11 @@ const sections = {
     awards: {
         file: "data/awards.csv",
         type: "award"
+    },
+
+    socials: {
+        file: "data/socials.csv",
+        type: "social"
     }
 };
 
