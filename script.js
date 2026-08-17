@@ -38,14 +38,6 @@ async function loadCSV(file) {
 }
 
 
-/*
-    Small CSV parser supporting:
-    - commas
-    - quoted values
-    - commas inside quoted values
-    - escaped quotation marks
-*/
-
 function parseCSV(text) {
     const rows = [];
     let row = [];
@@ -133,14 +125,6 @@ function formatMonthYear(value) {
         return "Present";
     }
 
-    /*
-        Expected CSV format:
-        YYYY-MM
-
-        Example:
-        2026-06
-    */
-
     const match = value.match(/^(\d{4})-(\d{1,2})$/);
 
     if (!match) {
@@ -171,7 +155,6 @@ function formatDateRange(start, end) {
         return formattedStart;
     }
 
-    // En dash with one space on either side.
     return `${formattedStart} – ${formattedEnd}`;
 }
 
@@ -191,14 +174,6 @@ function createImage(image) {
     return img;
 }
 
-
-/*
-    Experience and volunteering:
-
-    Title
-    Organization
-    Date
-*/
 
 function createExperienceEntry(item) {
     const entry = document.createElement("article");
@@ -232,14 +207,6 @@ function createExperienceEntry(item) {
 }
 
 
-/*
-    Education:
-
-    Degree
-    School
-    Date
-*/
-
 function createEducationEntry(item) {
     const entry = document.createElement("article");
     entry.className = "entry";
@@ -271,14 +238,6 @@ function createEducationEntry(item) {
     return entry;
 }
 
-
-/*
-    Awards:
-
-    Award
-    Organization
-    Date
-*/
 
 function createAwardEntry(item) {
     const entry = document.createElement("article");
@@ -374,9 +333,13 @@ function initializeScrollCue() {
     }
 
     const updateScrollCue = () => {
-        const shouldHide = window.scrollY > window.innerHeight * 0.12;
+        const shouldHide =
+            window.scrollY > window.innerHeight * 0.12;
 
-        scrollCue.classList.toggle("is-hidden", shouldHide);
+        scrollCue.classList.toggle(
+            "is-hidden",
+            shouldHide
+        );
     };
 
     window.addEventListener("scroll", updateScrollCue, {
@@ -384,6 +347,45 @@ function initializeScrollCue() {
     });
 
     updateScrollCue();
+}
+
+
+/* --------------------------------
+   Section fade animations
+-------------------------------- */
+
+function initializeSectionAnimations() {
+    const sections = document.querySelectorAll(".resume-section");
+
+    if (!("IntersectionObserver" in window)) {
+        sections.forEach(section => {
+            section.classList.add("is-visible");
+        });
+
+        return;
+    }
+
+    const observer = new IntersectionObserver(
+        entries => {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) {
+                    return;
+                }
+
+                entry.target.classList.add("is-visible");
+
+                observer.unobserve(entry.target);
+            });
+        },
+        {
+            threshold: 0.12,
+            rootMargin: "0px 0px -8% 0px"
+        }
+    );
+
+    sections.forEach(section => {
+        observer.observe(section);
+    });
 }
 
 
@@ -399,6 +401,7 @@ async function initialize() {
     );
 
     initializeScrollCue();
+    initializeSectionAnimations();
 }
 
 initialize();
