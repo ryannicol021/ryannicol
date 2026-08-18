@@ -112,7 +112,7 @@ a {
 
     background-image: url("images/background.png");
     background-size: cover;
-    background-position: center center;
+    background-position: 100px center;
 
     filter: blur(4px);
 
