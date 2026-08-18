@@ -1,3 +1,6 @@
+history.scrollRestoration = "manual";
+window.scrollTo(0, 0);
+
 const sections = {
     experience: {
         file: "data/experience.csv",
@@ -443,6 +446,9 @@ function initializeSectionAnimations() {
 -------------------------------- */
 
 async function initialize() {
+    history.scrollRestoration = "manual";
+    window.scrollTo(0, 0);
+    
     const pageLoader = document.querySelector(".page-loader");
 
     try {
