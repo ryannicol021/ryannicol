@@ -114,7 +114,7 @@ a {
     background-size: cover;
     background-position: center;
 
-    filter: blur(14px);
+    filter: blur(10px);
 
     transform: scale(1.04);
 }
@@ -130,7 +130,7 @@ a {
 
     z-index: -1;
 
-    background: rgba(23, 23, 21, 0.72);
+    background: rgba(23, 23, 21, 0.6);
 
     pointer-events: none;
 }
