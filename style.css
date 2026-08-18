@@ -234,21 +234,10 @@ a {
     width: 100%;
     margin: 0;
 
-    padding:
-        7vh 0
-        10vh;
+    padding: 7vh 0 10vh;
 
     background: var(--light);
     color: var(--light-text);
-}
-
-.information > * {
-    width: min(
-        var(--page-width),
-        calc(100% - (2 * var(--side-padding)))
-    );
-
-    margin-inline: auto;
 }
 
 .resume-section {
@@ -257,7 +246,8 @@ a {
         calc(100% - (2 * var(--side-padding)))
     );
 
-    margin-inline: auto;
+    margin-left: auto;
+    margin-right: auto;
 
     display: block;
 
