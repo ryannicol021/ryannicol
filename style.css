@@ -252,6 +252,13 @@ a {
 }
 
 .resume-section {
+    width: min(
+        var(--page-width),
+        calc(100% - (2 * var(--side-padding)))
+    );
+
+    margin-inline: auto;
+
     display: block;
 
     padding-top: 42px;
