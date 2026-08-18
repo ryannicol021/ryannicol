@@ -91,9 +91,7 @@ a {
     position: relative;
 
     min-height: 100svh;
-
-    padding:
-        var(--side-padding);
+    padding: var(--side-padding);
 
     display: flex;
     align-items: center;
@@ -103,10 +101,18 @@ a {
     color: var(--dark-text);
 }
 
-.intro-name {
+.intro-inner {
     width: min(100%, var(--page-width));
-    margin: 0;
-    padding: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin: 0 auto;
+}
+
+.intro-content {
+    min-width: 0;
 }
 
 .intro-name h1 {
@@ -121,7 +127,6 @@ a {
 
     font-size: clamp(2.25rem, 6vw, 5.5rem);
     font-weight: 400;
-
     letter-spacing: -0.045em;
     line-height: 1;
 }
@@ -140,107 +145,33 @@ a {
 
     font-size: clamp(1.125rem, 3vw, 2.75rem);
     font-weight: 400;
-
     letter-spacing: -0.045em;
     line-height: 1;
 }
 
 
 /* --------------------------------
-   Scroll cue
+   Intro photo
 -------------------------------- */
 
-.scroll-cue {
-    position: fixed;
-    z-index: 10;
+.intro-photo {
+    width: min(42%, 440px);
+    aspect-ratio: 5 / 4;
 
-    left: 0;
-    right: 0;
-    bottom: 0;
+    flex: 0 0 auto;
 
-    height: 19vh;
-    min-height: 120px;
+    overflow: hidden;
 
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-
-    padding-bottom: 34px;
-
-    pointer-events: none;
-
-    background:
-        linear-gradient(
-            to bottom,
-            rgba(23, 23, 21, 0),
-            rgba(23, 23, 21, 0.55) 60%,
-            rgba(23, 23, 21, 0.94) 100%
-        );
-
-    opacity: 1;
-    visibility: visible;
-
-    transition:
-        opacity 600ms ease,
-        visibility 600ms ease;
+    border-radius: 7px;
 }
 
-.scroll-cue.is-hidden {
-    opacity: 0;
-    visibility: hidden;
-}
+.intro-photo img {
+    width: 100%;
+    height: 100%;
 
-.scroll-arrow {
-    position: relative;
+    display: block;
 
-    width: 14px;
-    height: 20px;
-
-    opacity: 0.78;
-
-    animation:
-        subtle-arrow 3.2s ease-in-out infinite;
-}
-
-.scroll-arrow::before,
-.scroll-arrow::after {
-    content: "";
-
-    position: absolute;
-
-    top: 1px;
-
-    width: 1px;
-    height: 13px;
-
-    background: var(--dark-text);
-
-    transform-origin: bottom center;
-
-    border-radius: 1px;
-}
-
-.scroll-arrow::before {
-    left: 6px;
-
-    transform: rotate(-43deg);
-}
-
-.scroll-arrow::after {
-    right: 6px;
-
-    transform: rotate(43deg);
-}
-
-@keyframes subtle-arrow {
-    0%,
-    100% {
-        transform: translateY(0);
-    }
-
-    50% {
-        transform: translateY(3px);
-    }
+    object-fit: cover;
 }
 
 
@@ -248,33 +179,20 @@ a {
    Social links
 -------------------------------- */
 
-.social-links {
-    width: 100%;
-
+.intro-content .social-links {
     display: flex;
     flex-direction: column;
+
     align-items: flex-start;
 
     gap: 18px;
 
-    /*
-        The first social row begins exactly
-        where the name begins, with the same
-        visual spacing used between rows.
-    */
-    margin-top: 18px;
-
-    padding: 0;
-
-    text-align: left;
+    margin-top: 26px;
 }
 
 .social-link {
     display: flex;
     align-items: center;
-
-    margin: 0;
-    padding: 0;
 
     color: inherit;
     text-decoration: none;
@@ -292,8 +210,7 @@ a {
 }
 
 .social-link-handle {
-    margin:
-        0 0 0 14px;
+    margin-left: 14px;
 
     color: var(--dark-muted);
 
@@ -318,33 +235,28 @@ a {
     margin: 0;
 
     padding:
-        6vh 0
-        8vh;
+        7vh 0
+        10vh;
 
     background: var(--light);
     color: var(--light-text);
 }
 
 .information > * {
-    width: min(100%, var(--page-width));
+    width: min(
+        calc(100% - (2 * var(--side-padding))),
+        var(--page-width)
+    );
 
     margin-left: auto;
     margin-right: auto;
-
-    padding-left: var(--side-padding);
-    padding-right: var(--side-padding);
 }
-
-
-/* --------------------------------
-   Resume sections
--------------------------------- */
 
 .resume-section {
     display: block;
 
-    padding-top: 44px;
-    padding-bottom: 44px;
+    padding-top: 42px;
+    padding-bottom: 42px;
 
     opacity: 0;
     transform: translateY(18px);
@@ -369,8 +281,7 @@ a {
 -------------------------------- */
 
 .resume-section h2 {
-    margin:
-        0 0 30px;
+    margin: 0 0 30px;
 
     font-family:
         "Barlow Condensed",
@@ -397,9 +308,7 @@ a {
 .entry {
     display: grid;
 
-    grid-template-columns:
-        56px
-        minmax(0, 1fr);
+    grid-template-columns: 56px minmax(0, 1fr);
 
     column-gap: 24px;
 
@@ -439,7 +348,7 @@ a {
 }
 
 .entry + .entry {
-    margin-top: 36px;
+    margin-top: 32px;
 }
 
 
@@ -485,8 +394,7 @@ a {
 }
 
 .entry-secondary {
-    margin:
-        2px 0 0;
+    margin: 2px 0 0;
 
     color: var(--light-text);
 
@@ -502,8 +410,7 @@ a {
 }
 
 .entry-date {
-    margin:
-        4px 0 0;
+    margin: 4px 0 0;
 
     color: var(--light-muted);
 
@@ -517,22 +424,6 @@ a {
 
     letter-spacing: -0.012em;
     line-height: 1.2;
-}
-
-
-/* --------------------------------
-   Loading / empty states
--------------------------------- */
-
-.entries:empty::after {
-    content: "";
-
-    display: block;
-
-    width: 18px;
-    height: 1px;
-
-    background: var(--light-line);
 }
 
 
@@ -582,10 +473,43 @@ a {
 @media (max-width: 700px) {
 
     .intro {
-        justify-content: flex-start;
-        align-items: flex-end;
+        justify-content: center;
+        align-items: center;
 
-        padding-bottom: 15vh;
+        padding:
+            var(--side-padding);
+    }
+
+    .intro-inner {
+        width: 100%;
+
+        display: flex;
+        flex-direction: column;
+
+        align-items: stretch;
+        justify-content: center;
+    }
+
+    .intro-photo {
+        width: min(100%, 360px);
+
+        /*
+            Keep the photo above the introduction
+            while preserving the exact 5:4 ratio.
+        */
+        aspect-ratio: 5 / 4;
+
+        order: 1;
+
+        align-self: center;
+
+        margin-bottom: 32px;
+    }
+
+    .intro-content {
+        order: 2;
+
+        width: 100%;
     }
 
     .intro-name h1 {
@@ -595,6 +519,66 @@ a {
     .intro-name h4 {
         font-size: clamp(1.125rem, 6vw, 2rem);
     }
+
+    .intro-content .social-links {
+        margin-top: 26px;
+
+        gap: 18px;
+    }
+
+    .information {
+        padding:
+            5vh 0
+            7vh;
+    }
+
+    .information > * {
+        width: calc(100% - (2 * var(--side-padding)));
+    }
+
+    .resume-section {
+        padding-top: 36px;
+        padding-bottom: 36px;
+    }
+
+    .resume-section h2 {
+        margin-bottom: 28px;
+    }
+
+    .entry {
+        grid-template-columns: 44px minmax(0, 1fr);
+
+        column-gap: 18px;
+    }
+
+    .entry-logo {
+        width: 40px;
+        height: 40px;
+
+        border-radius: 6px;
+    }
+
+    .entry-primary {
+        font-size: 0.98rem;
+    }
+
+    .entry-secondary {
+        font-size: 0.92rem;
+    }
+
+    .entry-date {
+        font-size: 0.82rem;
+    }
+
+    .entry + .entry {
+        margin-top: 30px;
+    }
+
+    .contact-inner {
+        padding:
+            24px var(--side-padding);
+    }
+}
 
 
     /* ----------------------------
