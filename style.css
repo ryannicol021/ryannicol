@@ -72,8 +72,8 @@ a {
     pointer-events: all;
 
     transition:
-        opacity 1200ms cubic-bezier(0.22, 1, 0.36, 1),
-        visibility 1200ms ease;
+        opacity 1800ms cubic-bezier(0.22, 1, 0.36, 1),
+        visibility 1800ms ease;
 }
 
 .page-loader.is-hidden {
