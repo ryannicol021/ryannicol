@@ -640,3 +640,30 @@ a {
         transform: none;
     }
 }
+
+
+/* --------------------------------
+   Minimal scrollbar
+-------------------------------- */
+
+html {
+    scrollbar-width: thin;
+    scrollbar-color: #70706A transparent;
+}
+
+html::-webkit-scrollbar {
+    width: 3px;
+}
+
+html::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+html::-webkit-scrollbar-thumb {
+    background: #70706A;
+    border-radius: 999px;
+}
+
+html::-webkit-scrollbar-thumb:hover {
+    background: #8A8A83;
+}
