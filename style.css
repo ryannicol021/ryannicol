@@ -3,10 +3,8 @@
 
 :root {
     --dark: #171715;
-    --dark-soft: #20201D;
     --dark-text: #F4F4F0;
     --dark-muted: #A8A8A1;
-    --dark-line: #30302D;
 
     --light: #F4F4F0;
     --light-text: #171715;
@@ -37,10 +35,7 @@ body {
     color: var(--dark-text);
 
     font-family:
-        "Avenir Next",
-        "Helvetica Neue",
-        Helvetica,
-        Arial,
+        "Manrope",
         sans-serif;
 
     font-size: 16px;
@@ -91,7 +86,9 @@ a {
     position: relative;
 
     min-height: 100svh;
-    padding: var(--side-padding);
+
+    padding:
+        var(--side-padding);
 
     display: flex;
     align-items: center;
@@ -102,16 +99,13 @@ a {
 }
 
 .intro-inner {
-    width: min(
-        100%,
-        var(--page-width)
-    );
+    width: min(100%, var(--page-width));
+
+    margin: 0 auto;
 
     display: flex;
     align-items: center;
     justify-content: space-between;
-
-    margin: 0 auto;
 }
 
 .intro-content {
@@ -124,12 +118,11 @@ a {
     font-family:
         "Avenir Next",
         "Helvetica Neue",
-        Helvetica,
-        Arial,
         sans-serif;
 
     font-size: clamp(2.25rem, 6vw, 5.5rem);
     font-weight: 400;
+
     letter-spacing: -0.045em;
     line-height: 1;
 }
@@ -142,12 +135,11 @@ a {
     font-family:
         "Avenir Next",
         "Helvetica Neue",
-        Helvetica,
-        Arial,
         sans-serif;
 
     font-size: clamp(1.125rem, 3vw, 2.75rem);
     font-weight: 400;
+
     letter-spacing: -0.045em;
     line-height: 1;
 }
@@ -186,7 +178,6 @@ a {
 .intro-content .social-links {
     display: flex;
     flex-direction: column;
-
     align-items: flex-start;
 
     gap: 18px;
@@ -196,7 +187,6 @@ a {
 
 .social-link {
     display: flex;
-
     align-items: center;
 
     color: inherit;
@@ -237,9 +227,9 @@ a {
 
 .information {
     width: 100%;
-    margin: 0;
 
-    padding: 3vh 0 5vh;
+    padding:
+        3vh 0 5vh;
 
     background: var(--light);
     color: var(--light-text);
@@ -247,21 +237,18 @@ a {
 
 
 /*
-    This is the important part.
+    Each resume section is only as wide
+    as the content inside it.
 
-    The resume section itself gets a fixed maximum
-    width and is centered with equal left/right
-    margins.
-
-    On smaller screens, the width becomes the
-    viewport width minus the side padding.
+    Because it is max-content and has
+    auto margins, the whole section is
+    centered on the page while everything
+    inside remains left-aligned.
 */
 
 .resume-section {
-    width: min(
-        var(--page-width),
-        calc(100% - (2 * var(--side-padding)))
-    );
+    width: max-content;
+    max-width: calc(100vw - (2 * var(--side-padding)));
 
     margin-left: auto;
     margin-right: auto;
@@ -317,15 +304,22 @@ a {
 -------------------------------- */
 
 .entries {
+    width: max-content;
+    max-width: 100%;
+
     min-width: 0;
 }
 
 .entry {
     display: grid;
 
-    grid-template-columns:
-        56px
-        minmax(0, 1fr);
+    /*
+        The first column is reserved for
+        the logo. The second column is only
+        as wide as its actual text content.
+    */
+
+    grid-template-columns: 56px max-content;
 
     column-gap: 24px;
 
@@ -456,15 +450,12 @@ a {
 }
 
 .contact-inner {
-    width: min(
-        100%,
-        var(--page-width)
-    );
+    width: min(100%, var(--page-width));
 
     margin: 0 auto;
 
     padding:
-        24px var(--side-padding);
+        28px var(--side-padding);
 }
 
 .copyright {
@@ -487,14 +478,12 @@ a {
 
 
 /* --------------------------------
-   Responsive
+   Mobile
 -------------------------------- */
 
 @media (max-width: 700px) {
 
-    /* ----------------------------
-       Intro
-    ---------------------------- */
+    /* Opening */
 
     .intro {
         justify-content: center;
@@ -523,87 +512,43 @@ a {
         align-self: center;
 
         margin-bottom: 32px;
-
-        border-radius: 12px;
     }
 
     .intro-content {
-        order: 2;
-
         width: 100%;
+        order: 2;
     }
 
     .intro-name h1 {
-        font-size: clamp(
-            2.4rem,
-            12vw,
-            4rem
-        );
+        font-size: clamp(2.4rem, 12vw, 4rem);
     }
 
     .intro-name h4 {
-        font-size: clamp(
-            1.125rem,
-            6vw,
-            2rem
-        );
+        font-size: clamp(1.125rem, 6vw, 2rem);
     }
-
-
-    /* ----------------------------
-       Social links
-    ---------------------------- */
 
     .intro-content .social-links {
         margin-top: 26px;
-
         gap: 18px;
-
-        align-items: flex-start;
-    }
-
-    .social-link {
-        margin: 0;
-        padding: 0;
-    }
-
-    .social-link-icon {
-        width: 21px;
-        height: 21px;
-
-        flex-basis: 21px;
-    }
-
-    .social-link-handle {
-        margin-left: 14px;
-
-        font-size: 0.88rem;
     }
 
 
-    /* ----------------------------
-       Resume
-    ---------------------------- */
+    /* Resume */
 
     .information {
         padding:
-            3vh 0
-            5vh;
+            3vh 0 5vh;
     }
 
     /*
-        Explicitly repeat the width calculation
-        here so the mobile container cannot
-        touch the viewport edges.
+        On mobile the resume uses the available
+        width, with equal breathing room on both
+        sides of the screen.
     */
 
     .resume-section {
-        width: calc(
-            100% - (2 * var(--side-padding))
-        );
-
-        margin-left: auto;
-        margin-right: auto;
+        width: calc(100% - (2 * var(--side-padding)));
+        max-width: none;
 
         padding-top: 36px;
         padding-bottom: 36px;
@@ -611,6 +556,11 @@ a {
 
     .resume-section h2 {
         margin-bottom: 28px;
+    }
+
+    .entries {
+        width: 100%;
+        max-width: none;
     }
 
     .entry {
@@ -645,13 +595,31 @@ a {
     }
 
 
-    /* ----------------------------
-       Footer
-    ---------------------------- */
+    /* Socials */
+
+    .social-links {
+        gap: 16px;
+    }
+
+    .social-link-icon {
+        width: 21px;
+        height: 21px;
+
+        flex-basis: 21px;
+    }
+
+    .social-link-handle {
+        margin-left: 14px;
+
+        font-size: 0.88rem;
+    }
+
+
+    /* Footer */
 
     .contact-inner {
         padding:
-            20px var(--side-padding);
+            24px var(--side-padding);
     }
 }
 
