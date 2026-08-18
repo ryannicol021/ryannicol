@@ -443,15 +443,32 @@ function initializeSectionAnimations() {
 -------------------------------- */
 
 async function initialize() {
-    await Promise.all(
-        Object.entries(sections).map(([name, config]) =>
-            renderSection(name, config)
-        )
-    );
+    const pageLoader = document.querySelector(".page-loader");
 
-    initializeScrollCue();
-    initializeSectionAnimations();
-    initializeCopyrightYear();
+    try {
+        await Promise.all(
+            Object.entries(sections).map(([name, config]) =>
+                renderSection(name, config)
+            )
+        );
+
+        initializeScrollCue();
+        initializeSectionAnimations();
+        initializeCopyrightYear();
+    } finally {
+        /*
+            Give the browser a moment to paint the
+            fully populated page before removing the
+            opening curtain.
+        */
+        requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+                if (pageLoader) {
+                    pageLoader.classList.add("is-hidden");
+                }
+            });
+        });
+    }
 }
 
 initialize();
