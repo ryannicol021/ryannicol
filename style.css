@@ -102,7 +102,10 @@ a {
 }
 
 .intro-inner {
-    width: min(100%, var(--page-width));
+    width: min(
+        100%,
+        var(--page-width)
+    );
 
     display: flex;
     align-items: center;
@@ -156,6 +159,7 @@ a {
 
 .intro-photo {
     width: min(42%, 440px);
+
     aspect-ratio: 5 / 4;
 
     flex: 0 0 auto;
@@ -192,6 +196,7 @@ a {
 
 .social-link {
     display: flex;
+
     align-items: center;
 
     color: inherit;
@@ -234,11 +239,23 @@ a {
     width: 100%;
     margin: 0;
 
-    padding: 7vh 0 10vh;
+    padding: 3vh 0 5vh;
 
     background: var(--light);
     color: var(--light-text);
 }
+
+
+/*
+    This is the important part.
+
+    The resume section itself gets a fixed maximum
+    width and is centered with equal left/right
+    margins.
+
+    On smaller screens, the width becomes the
+    viewport width minus the side padding.
+*/
 
 .resume-section {
     width: min(
@@ -246,14 +263,14 @@ a {
         calc(100% - (2 * var(--side-padding)))
     );
 
-    margin-inline: auto;
+    margin-left: auto;
+    margin-right: auto;
 
     display: block;
 
-    padding-top: 42px;
-    padding-bottom: 42px;
+    padding-top: 40px;
+    padding-bottom: 40px;
 
-    /* everything inside stays left aligned */
     text-align: left;
 
     opacity: 0;
@@ -306,7 +323,9 @@ a {
 .entry {
     display: grid;
 
-    grid-template-columns: 56px minmax(0, 1fr);
+    grid-template-columns:
+        56px
+        minmax(0, 1fr);
 
     column-gap: 24px;
 
@@ -437,12 +456,15 @@ a {
 }
 
 .contact-inner {
-    width: min(100%, var(--page-width));
+    width: min(
+        100%,
+        var(--page-width)
+    );
 
     margin: 0 auto;
 
     padding:
-        28px var(--side-padding);
+        24px var(--side-padding);
 }
 
 .copyright {
@@ -470,12 +492,15 @@ a {
 
 @media (max-width: 700px) {
 
+    /* ----------------------------
+       Intro
+    ---------------------------- */
+
     .intro {
         justify-content: center;
         align-items: center;
 
-        padding:
-            var(--side-padding);
+        padding: var(--side-padding);
     }
 
     .intro-inner {
@@ -491,10 +516,6 @@ a {
     .intro-photo {
         width: min(100%, 360px);
 
-        /*
-            Keep the photo above the introduction
-            while preserving the exact 5:4 ratio.
-        */
         aspect-ratio: 5 / 4;
 
         order: 1;
@@ -502,6 +523,8 @@ a {
         align-self: center;
 
         margin-bottom: 32px;
+
+        border-radius: 12px;
     }
 
     .intro-content {
@@ -511,82 +534,37 @@ a {
     }
 
     .intro-name h1 {
-        font-size: clamp(2.4rem, 12vw, 4rem);
+        font-size: clamp(
+            2.4rem,
+            12vw,
+            4rem
+        );
     }
 
     .intro-name h4 {
-        font-size: clamp(1.125rem, 6vw, 2rem);
+        font-size: clamp(
+            1.125rem,
+            6vw,
+            2rem
+        );
     }
-
-    .intro-content .social-links {
-        margin-top: 26px;
-
-        gap: 18px;
-    }
-
-    .information {
-        padding:
-            5vh 0
-            7vh;
-    }
-
-    .information > * {
-        width: calc(100% - (2 * var(--side-padding)));
-    }
-
-    .resume-section {
-        padding-top: 36px;
-        padding-bottom: 36px;
-    }
-
-    .resume-section h2 {
-        margin-bottom: 28px;
-    }
-
-    .entry {
-        grid-template-columns: 44px minmax(0, 1fr);
-
-        column-gap: 18px;
-    }
-
-    .entry-logo {
-        width: 40px;
-        height: 40px;
-
-        border-radius: 6px;
-    }
-
-    .entry-primary {
-        font-size: 0.98rem;
-    }
-
-    .entry-secondary {
-        font-size: 0.92rem;
-    }
-
-    .entry-date {
-        font-size: 0.82rem;
-    }
-
-    .entry + .entry {
-        margin-top: 30px;
-    }
-
-    .contact-inner {
-        padding:
-            24px var(--side-padding);
-    }
-}
 
 
     /* ----------------------------
        Social links
     ---------------------------- */
 
-    .social-links {
-        gap: 16px;
+    .intro-content .social-links {
+        margin-top: 26px;
 
-        margin-top: 16px;
+        gap: 18px;
+
+        align-items: flex-start;
+    }
+
+    .social-link {
+        margin: 0;
+        padding: 0;
     }
 
     .social-link-icon {
@@ -613,18 +591,26 @@ a {
             5vh;
     }
 
-    .information > * {
-        padding-left: 24px;
-        padding-right: 24px;
-    }
+    /*
+        Explicitly repeat the width calculation
+        here so the mobile container cannot
+        touch the viewport edges.
+    */
 
     .resume-section {
-        padding-top: 40px;
-        padding-bottom: 40px;
+        width: calc(
+            100% - (2 * var(--side-padding))
+        );
+
+        margin-left: auto;
+        margin-right: auto;
+
+        padding-top: 36px;
+        padding-bottom: 36px;
     }
 
     .resume-section h2 {
-        margin-bottom: 30px;
+        margin-bottom: 28px;
     }
 
     .entry {
@@ -655,7 +641,7 @@ a {
     }
 
     .entry + .entry {
-        margin-top: 32px;
+        margin-top: 30px;
     }
 
 
@@ -665,7 +651,7 @@ a {
 
     .contact-inner {
         padding:
-            24px;
+            20px var(--side-padding);
     }
 }
 
