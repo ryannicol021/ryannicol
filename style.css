@@ -56,7 +56,6 @@ a {
 .page-loader {
     position: fixed;
     inset: 0;
-
     z-index: 9999;
 
     background: var(--dark);
@@ -85,7 +84,9 @@ a {
     position: relative;
 
     min-height: 100svh;
-    padding: var(--side-padding);
+
+    padding:
+        var(--side-padding);
 
     display: flex;
     align-items: center;
@@ -98,11 +99,11 @@ a {
 .intro-inner {
     width: min(100%, var(--page-width));
 
-    margin: 0 auto;
-
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+    margin: 0 auto;
 }
 
 .intro-content {
@@ -115,6 +116,8 @@ a {
     font-family:
         "Avenir Next",
         "Helvetica Neue",
+        Helvetica,
+        Arial,
         sans-serif;
 
     font-size: clamp(2.25rem, 6vw, 5.5rem);
@@ -132,6 +135,8 @@ a {
     font-family:
         "Avenir Next",
         "Helvetica Neue",
+        Helvetica,
+        Arial,
         sans-serif;
 
     font-size: clamp(1.125rem, 3vw, 2.75rem);
@@ -175,6 +180,7 @@ a {
 .intro-content .social-links {
     display: flex;
     flex-direction: column;
+
     align-items: flex-start;
 
     gap: 18px;
@@ -223,28 +229,51 @@ a {
 -------------------------------- */
 
 .information {
-    width: fit-content;
-    max-width: calc(100% - (2 * var(--side-padding)));
+    width: 100%;
 
-    margin-left: auto;
-    margin-right: auto;
+    margin: 0;
 
     padding:
-        3vh 0 5vh;
+        5vh 0
+        7vh;
 
     background: var(--light);
     color: var(--light-text);
+
+    /*
+        The background belongs to this element,
+        so it always reaches both edges of the screen.
+    */
 }
 
 
 /*
-    The individual sections all use the
-    same width. The width of the entire
-    resume is determined by its widest
-    section/content.
-*/
+    All resume sections share one intrinsic width.
 
+    max-content makes the grid wide enough for
+    its longest content. The grid itself is then
+    centered within the full-width white area.
+*/
+.information {
+    display: grid;
+
+    grid-template-columns: min(
+        max-content,
+        calc(100% - (2 * var(--side-padding)))
+    );
+
+    justify-content: center;
+}
+
+
+/*
+    Every section occupies the same grid column,
+    so the section headings and entries line up
+    regardless of how much content each section has.
+*/
 .resume-section {
+    grid-column: 1;
+
     width: 100%;
 
     margin: 0;
@@ -252,7 +281,7 @@ a {
     display: block;
 
     padding:
-        40px 0;
+        42px 0;
 
     text-align: left;
 
@@ -300,9 +329,6 @@ a {
 -------------------------------- */
 
 .entries {
-    width: max-content;
-    max-width: 100%;
-
     min-width: 0;
 }
 
@@ -311,7 +337,7 @@ a {
 
     grid-template-columns:
         56px
-        max-content;
+        minmax(0, 1fr);
 
     column-gap: 24px;
 
@@ -505,8 +531,9 @@ a {
     }
 
     .intro-content {
-        width: 100%;
         order: 2;
+
+        width: 100%;
     }
 
     .intro-name h1 {
@@ -519,36 +546,34 @@ a {
 
     .intro-content .social-links {
         margin-top: 26px;
+
         gap: 18px;
     }
 
 
-    /* Resume */
-
+    /*
+        On mobile the intrinsic resume width is
+        constrained by the screen padding.
+    */
     .information {
-        width: 100%;
-        max-width: none;
-
-        margin: 0;
+        grid-template-columns:
+            min(
+                max-content,
+                calc(100% - (2 * var(--side-padding)))
+            );
 
         padding:
-            3vh var(--side-padding) 5vh;
+            3vh 0
+            5vh;
     }
 
     .resume-section {
-        width: 100%;
-
         padding:
             36px 0;
     }
 
     .resume-section h2 {
         margin-bottom: 28px;
-    }
-
-    .entries {
-        width: 100%;
-        max-width: none;
     }
 
     .entry {
@@ -582,29 +607,6 @@ a {
         margin-top: 30px;
     }
 
-
-    /* Socials */
-
-    .social-links {
-        gap: 16px;
-    }
-
-    .social-link-icon {
-        width: 21px;
-        height: 21px;
-
-        flex-basis: 21px;
-    }
-
-    .social-link-handle {
-        margin-left: 14px;
-
-        font-size: 0.88rem;
-    }
-
-
-    /* Footer */
-
     .contact-inner {
         padding:
             24px var(--side-padding);
@@ -622,9 +624,13 @@ a {
         scroll-behavior: auto;
     }
 
+    .scroll-arrow {
+        animation: none;
+    }
+
+    .scroll-cue,
     .resume-section,
-    .entry,
-    .page-loader {
+    .entry {
         transition: none;
     }
 
