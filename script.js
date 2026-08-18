@@ -451,6 +451,17 @@ async function initialize() {
 
     initializeScrollCue();
     initializeSectionAnimations();
+    initializeCopyrightYear();
 }
 
 initialize();
+
+function initializeCopyrightYear() {
+    const year = document.querySelector(".copyright-year");
+
+    if (!year) {
+        return;
+    }
+
+    year.textContent = new Date().getFullYear();
+}
