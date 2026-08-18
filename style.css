@@ -56,6 +56,34 @@ a {
 
 
 /* --------------------------------
+   Initial page reveal
+-------------------------------- */
+
+.page-loader {
+    position: fixed;
+    inset: 0;
+
+    z-index: 9999;
+
+    background: var(--dark);
+
+    opacity: 1;
+    visibility: visible;
+
+    pointer-events: all;
+
+    transition:
+        opacity 420ms cubic-bezier(0.22, 1, 0.36, 1),
+        visibility 420ms ease;
+}
+
+.page-loader.is-hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+/* --------------------------------
    Opening
 -------------------------------- */
 
