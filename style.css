@@ -1,6 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Manrope:wght@400;500;600&display=swap");
 
-
 :root {
     --dark: #171715;
     --dark-text: #F4F4F0;
@@ -86,9 +85,7 @@ a {
     position: relative;
 
     min-height: 100svh;
-
-    padding:
-        var(--side-padding);
+    padding: var(--side-padding);
 
     display: flex;
     align-items: center;
@@ -226,7 +223,11 @@ a {
 -------------------------------- */
 
 .information {
-    width: 100%;
+    width: fit-content;
+    max-width: calc(100% - (2 * var(--side-padding)));
+
+    margin-left: auto;
+    margin-right: auto;
 
     padding:
         3vh 0 5vh;
@@ -237,26 +238,21 @@ a {
 
 
 /*
-    Each resume section is only as wide
-    as the content inside it.
-
-    Because it is max-content and has
-    auto margins, the whole section is
-    centered on the page while everything
-    inside remains left-aligned.
+    The individual sections all use the
+    same width. The width of the entire
+    resume is determined by its widest
+    section/content.
 */
 
 .resume-section {
-    width: max-content;
-    max-width: calc(100vw - (2 * var(--side-padding)));
+    width: 100%;
 
-    margin-left: auto;
-    margin-right: auto;
+    margin: 0;
 
     display: block;
 
-    padding-top: 40px;
-    padding-bottom: 40px;
+    padding:
+        40px 0;
 
     text-align: left;
 
@@ -313,13 +309,9 @@ a {
 .entry {
     display: grid;
 
-    /*
-        The first column is reserved for
-        the logo. The second column is only
-        as wide as its actual text content.
-    */
-
-    grid-template-columns: 56px max-content;
+    grid-template-columns:
+        56px
+        max-content;
 
     column-gap: 24px;
 
@@ -483,8 +475,6 @@ a {
 
 @media (max-width: 700px) {
 
-    /* Opening */
-
     .intro {
         justify-content: center;
         align-items: center;
@@ -536,22 +526,20 @@ a {
     /* Resume */
 
     .information {
-        padding:
-            3vh 0 5vh;
-    }
-
-    /*
-        On mobile the resume uses the available
-        width, with equal breathing room on both
-        sides of the screen.
-    */
-
-    .resume-section {
-        width: calc(100% - (2 * var(--side-padding)));
+        width: 100%;
         max-width: none;
 
-        padding-top: 36px;
-        padding-bottom: 36px;
+        margin: 0;
+
+        padding:
+            3vh var(--side-padding) 5vh;
+    }
+
+    .resume-section {
+        width: 100%;
+
+        padding:
+            36px 0;
     }
 
     .resume-section h2 {
@@ -634,13 +622,9 @@ a {
         scroll-behavior: auto;
     }
 
-    .scroll-arrow {
-        animation: none;
-    }
-
-    .scroll-cue,
     .resume-section,
-    .entry {
+    .entry,
+    .page-loader {
         transition: none;
     }
 
