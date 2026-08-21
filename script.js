@@ -34,16 +34,35 @@ const sections = {
 -------------------------------- */
 
 const bibleVerses = [
+    "1 Corinthians 16:13",
+    "1 Corinthians 16:14",
+    "1 John 4:19",
+    "1 Thessalonians 5:17",
+    "2 Corinthians 5:7",
+    "Colossians 3:14",
+    "Galatians 2:20",
+    "Galatians 5:14",
+    "Galatians 6:2",
+    "Isaiah 41:10",
+    "John 3:16",
+    "John 6:35",
+    "John 15:13",
+    "Joshua 1:9",
+    "Matthew 5:14",
+    "Matthew 5:16",
+    "Matthew 6:33",
+    "Matthew 16:24",
+    "Matthew 25:40",
+    "Micah 6:8",
     "Philippians 4:13",
     "Proverbs 3:5",
     "Psalm 23:1",
-    "Joshua 1:9",
-    "2 Timothy 1:7",
-    "Psalm 118:24",
-    "Proverbs 16:3",
-    "Colossians 3:23",
-    "1 Corinthians 16:14",
-    "Psalm 121:1"
+    "Romans 8:31",
+    "Romans 12:2",
+    "Romans 12:12",
+    "Romans 12:21",
+    "Romans 13:9",
+    "Romans 15:13"
 ];
 
 
