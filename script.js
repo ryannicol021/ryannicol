@@ -192,7 +192,12 @@ function createSocialEntry(item) {
     image.className = "social-link-icon";
     image.src = `images/${item.image}`;
     image.alt = "";
-    image.loading = "lazy";
+
+    /*
+        Do not lazy-load these images.
+        They are part of the initial page and
+        the opening curtain waits for them.
+    */
 
     const handle = document.createElement("span");
 
@@ -205,13 +210,19 @@ function createSocialEntry(item) {
     return link;
 }
 
+
 function createImage(image) {
     const img = document.createElement("img");
 
     img.className = "entry-logo";
     img.src = `images/${image}`;
     img.alt = "";
-    img.loading = "lazy";
+
+    /*
+        Do not lazy-load these images.
+        They are part of the initial page and
+        the opening curtain waits for them.
+    */
 
     return img;
 }
@@ -374,6 +385,71 @@ async function renderSection(sectionName, config) {
 
 
 /* --------------------------------
+   Wait for images
+-------------------------------- */
+
+async function waitForImages() {
+    /*
+        Wait for every <img> currently on the page.
+        This includes the static images in index.html
+        as well as the images generated from the CSV files.
+    */
+    const images = Array.from(document.images);
+
+    const imagePromises = images.map(image => {
+        if (image.complete) {
+            if (typeof image.decode === "function") {
+                return image.decode().catch(() => {});
+            }
+
+            return Promise.resolve();
+        }
+
+        return new Promise(resolve => {
+            image.addEventListener("load", resolve, {
+                once: true
+            });
+
+            image.addEventListener("error", resolve, {
+                once: true
+            });
+        });
+    });
+
+
+    /*
+        background.png is a CSS background rather than
+        an <img>, so document.images does not include it.
+
+        Explicitly load and decode it so the opening curtain
+        does not disappear before the background is ready.
+    */
+    const backgroundImage = new Image();
+
+    backgroundImage.src = "images/background.png";
+
+    const backgroundPromise =
+        typeof backgroundImage.decode === "function"
+            ? backgroundImage.decode().catch(() => {})
+            : new Promise(resolve => {
+                backgroundImage.addEventListener("load", resolve, {
+                    once: true
+                });
+
+                backgroundImage.addEventListener("error", resolve, {
+                    once: true
+                });
+            });
+
+
+    await Promise.all([
+        ...imagePromises,
+        backgroundPromise
+    ]);
+}
+
+
+/* --------------------------------
    Scroll cue
 -------------------------------- */
 
@@ -442,30 +518,60 @@ function initializeSectionAnimations() {
 
 
 /* --------------------------------
+   Copyright year
+-------------------------------- */
+
+function initializeCopyrightYear() {
+    const year = document.querySelector(".copyright-year");
+
+    if (!year) {
+        return;
+    }
+
+    year.textContent = new Date().getFullYear();
+}
+
+
+/* --------------------------------
    Initialize
 -------------------------------- */
 
 async function initialize() {
     history.scrollRestoration = "manual";
     window.scrollTo(0, 0);
-    
+
     const pageLoader = document.querySelector(".page-loader");
 
     try {
+        /*
+            First load and render all CSV-driven content.
+        */
         await Promise.all(
             Object.entries(sections).map(([name, config]) =>
                 renderSection(name, config)
             )
         );
 
+        /*
+            Initialize everything that needs the rendered content.
+        */
         initializeScrollCue();
         initializeSectionAnimations();
         initializeCopyrightYear();
+
+        /*
+            Now wait for all images, including the CSS background,
+            to actually finish loading/decoding.
+        */
+        await waitForImages();
+
+    } catch (error) {
+        console.error(error);
+
     } finally {
         /*
-            Give the browser a moment to paint the
-            fully populated page before removing the
-            opening curtain.
+            Give the browser two animation frames to paint the
+            completed page before removing the opening curtain.
         */
         requestAnimationFrame(() => {
             requestAnimationFrame(() => {
@@ -477,14 +583,5 @@ async function initialize() {
     }
 }
 
+
 initialize();
-
-function initializeCopyrightYear() {
-    const year = document.querySelector(".copyright-year");
-
-    if (!year) {
-        return;
-    }
-
-    year.textContent = new Date().getFullYear();
-}
