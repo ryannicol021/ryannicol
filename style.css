@@ -792,3 +792,13 @@ html::-webkit-scrollbar-thumb {
 html::-webkit-scrollbar-thumb:hover {
     background: #8A8A83;
 }
+
+::selection {
+    background: rgba(0, 0, 0, 0.10);
+    color: inherit;
+}
+
+::-moz-selection {
+    background: rgba(0, 0, 0, 0.10);
+    color: inherit;
+}
