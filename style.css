@@ -570,7 +570,7 @@ a {
 .bible-verse-reference {
     margin: 0;
 
-    color: var(--dark-text);
+    color: var(--dark-muted);
 
     font-family:
         "Barlow Condensed",
