@@ -30,6 +30,41 @@ const sections = {
 
 
 /* --------------------------------
+   Bible verses
+-------------------------------- */
+
+const bibleVerses = [
+    "Philippians 4:13",
+    "Proverbs 3:5",
+    "Psalm 23:1",
+    "Joshua 1:9",
+    "2 Timothy 1:7",
+    "Psalm 118:24",
+    "Proverbs 16:3",
+    "Colossians 3:23",
+    "1 Corinthians 16:14",
+    "Psalm 121:1"
+];
+
+
+function initializeBibleVerse() {
+    const verseReference =
+        document.querySelector(".bible-verse-reference");
+
+    if (!verseReference || !bibleVerses.length) {
+        return;
+    }
+
+    const verse =
+        bibleVerses[
+            Math.floor(Math.random() * bibleVerses.length)
+        ];
+
+    verseReference.textContent = verse;
+}
+
+
+/* --------------------------------
    CSV loading
 -------------------------------- */
 
@@ -558,6 +593,7 @@ async function initialize() {
         initializeScrollCue();
         initializeSectionAnimations();
         initializeCopyrightYear();
+        initializeBibleVerse();
 
         /*
             Now wait for all images, including the CSS background,
