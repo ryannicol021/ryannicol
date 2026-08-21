@@ -113,6 +113,7 @@ a {
     background-image: url("images/background.png");
     background-size: cover;
     background-position: -300px center;
+    background-repeat: no-repeat;
 
     filter: blur(4px);
 
@@ -553,6 +554,14 @@ a {
         align-items: center;
 
         padding: var(--side-padding);
+    }
+    
+    @media (orientation: landscape) {
+        
+        .intro::before {
+            background-size: calc(100% + 360px) auto;
+        }
+        
     }
 
     .intro-inner {
