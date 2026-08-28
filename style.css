@@ -256,7 +256,7 @@ a {
 .intro-photo {
     width: min(42%, 440px);
 
-    aspect-ratio: 5 / 4;
+    aspect-ratio: 3 / 4;
 
     flex: 0 0 auto;
 
